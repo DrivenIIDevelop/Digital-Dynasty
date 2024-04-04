@@ -1,4 +1,14 @@
-# Digital Dynasty
+
+<div align=center>
+  <img src="/blob.svg" width="80" /> 
+</div>
+<div align=center>
+  <h2>Digital Dynasty</h2>  
+</div>
+
+
+
+
 
 ## Roadmap
 
