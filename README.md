@@ -1,6 +1,6 @@
 
 <div align=center>
-  <img src="/blob.svg" width="80" /> 
+  <img src="/blob.svg" width="100" /> 
 </div>
 <div align=center>
   <h2>Digital Dynasty</h2>  
