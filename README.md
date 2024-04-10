@@ -3,19 +3,21 @@
   <img src="/blob.svg" width="100" /> 
 </div>
 <div align=center>
-  <h2>Digital Dynasty</h2>  
+  <h3>Digital Dynasty</h3>  
 </div>
 
 
 
 
 
-## Roadmap
+## 🔥 Contributors
 
-- [ ] Issue Template
-- [ ] Setup Project
+1. Fork this repo, Only invited contributors are allowed
+2. Setup Locally
+3. Work on an issue
+4. Create an PR
 
-## Setup
+__Setup__
 
 ```sh
 # clone repo
@@ -25,7 +27,7 @@ yarn # install packages
 yarn dev # dev serve
 ```
 
-## Tech Stack
+## 🚀 Tech Stack
 
 - Package Manager: Yarn
 - Frontend: ReactJS
