@@ -1,6 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 
+const authRoutes = require("./routes/auth");
+const connectToMongo = require("./db");
+
+
+connectToMongo();
+
 const app = express();
 
 var corsOptions = {
@@ -19,6 +25,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.json({ message: "Hello PU" });
 });
+
+app.use('/auth', authRoutes);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
