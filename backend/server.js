@@ -1,27 +1,34 @@
-const express = require("express");
-const cors = require("cors");
+const app = require("./app");
+const dotenv = require("dotenv");
+dotenv.config();
 
-const app = express();
+const { connectToMongo, disconnectFromMongo} = require("./db");
 
-var corsOptions = {
-  origin: "http://localhost:8081"
+const startServer = async () => {
+  try {
+    await connectToMongo();
+    // set port, listen for requests
+    const PORT = process.env.PORT || 8080;
+    
+    const server = app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}.`);
+    });
+
+    // Server Shutting down
+    process.on("SIGINT", async () => {
+      console.log("Shutting down the server...");
+      await disconnectFromMongo();
+
+      server.close(() => {
+        console.log("Server successfully shut down.");
+        process.exit(0);
+      });
+    });
+    
+  } catch (error) {
+    console.error("Error starting server:", error);
+    disconnectFromMongo();
+  }
 };
 
-app.use(cors(corsOptions));
-
-// parse requests of content-type - application/json
-app.use(express.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
-
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Hello PU" });
-});
-
-// set port, listen for requests
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
+startServer();
