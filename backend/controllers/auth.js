@@ -79,13 +79,12 @@ const signIn = async(req, res) => {
 const signOut = async (req, res) => {
     try {
         const { token } =  req.headers;
-        if (token){
-            // Todo: Invalidate the token 
-            // Discuss how we going to do this.
-            // Could be just deleting the token in the client-side
-            console.log('You have successfully signed out.')
-        }
+
+        // Todo: Invalidate the token 
+        // Discuss how we going to do this.
+        // Could be just deleting the token in the client-side and nothing major
         res.json({ message: 'You have successfully signed out.'});
+
     } catch(error) {
         console.error('Error signing out user: ', error);
         res.status(500).json({ error: 'Internal server error' });
