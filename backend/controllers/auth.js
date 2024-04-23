@@ -1,5 +1,8 @@
 const User = require('../models/User.model');
-const hashPassword = require('../utils/hashPassword');
+const { hashPassword, verifyPassword }  = require('../utils/passwordUtils');
+
+const generateToken = require('../utils/generateToken');
+
 
 const signUp = async (req, res) => {
     try {
@@ -39,4 +42,41 @@ const signUp = async (req, res) => {
     }
 };
 
-module.exports = signUp;
+const signIn = async(req, res) => {
+    try{
+        const { username, password } = req.body;
+        
+        if( !username || !password ) {
+            console.error('Username or password not provided.')
+            return res.status(401).json({ error: 'Invalid username or password.'})
+        }
+
+        const user =  await User.findOne({ username });
+        if(!user){
+            console.error('User with given username not found.')
+            return res.status(404).json({ error: 'Invalid username or password.'})
+        }
+        // Verify user password against the hashed password
+        const isPasswordMatch = verifyPassword(password, user.password);
+        if (!isPasswordMatch){
+            console.error('Incorrect password.')
+            return res.status(401).json({ error: 'Invalid username or password.'})
+        }
+
+        // Generate token
+        const token = await generateToken(user.id);
+
+        const { __v, password: userPassword, ...userWithoutPassword} = user.toObject();
+        userWithoutPassword.token = token;
+
+        res.json(userWithoutPassword);
+    } catch(error){
+        console.error("Error signing in user: ", error);
+        res.status(500).json({ error: 'Internal server error'})
+    }
+};
+
+module.exports = {
+    signUp,
+    signIn
+};
