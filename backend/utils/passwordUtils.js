@@ -12,9 +12,9 @@ const hashPassword = async (password) => {
     }
 };
 
-const verifyPassword = async(password, hashedPassword) => {
+const verifyPassword = (password, hashedPassword) => {
     try {
-        return await bcrypt.compare(password, hashedPassword)
+        return bcrypt.compareSync(password, hashedPassword)
     } catch (error) {
         console.error('Error verify password: ', error);
         throw error;
