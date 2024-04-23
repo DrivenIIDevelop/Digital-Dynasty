@@ -3,13 +3,13 @@ const hashPassword = require('../utils/hashPassword');
 
 const signUp = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, ...otherFields } = req.body;
 
         // Check if the user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            console.error('User already exists');
-            return res.status(400).json({ error: 'User already exists' });
+            console.error('User with email already exists');
+            return res.status(400).json({ error: 'User with email already exists' });
         }
         // TODO: Add validation for email and password if needed
 
@@ -20,7 +20,7 @@ const signUp = async (req, res) => {
         const newUser = new User({
             email,
             password: hashedPassword,
-            ...req.body
+            ...otherFields
         });
 
         const savedUser = await newUser.save();
