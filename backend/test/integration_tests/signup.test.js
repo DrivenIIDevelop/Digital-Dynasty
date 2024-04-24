@@ -1,10 +1,8 @@
 const request = require('supertest');
-const dotenv = require('dotenv');
 const app = require('../../app');
 const { connectToMongo, disconnectFromMongo } = require('../../db');
 const User = require('../../models/User.model');
 
-dotenv.config();
 
 describe('Test authentication user signup', () => {
     beforeAll(async () => {
