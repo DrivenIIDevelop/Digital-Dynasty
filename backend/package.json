@@ -4,7 +4,9 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "test": "jest"
+    "test": "jest",
+    "test signup": "jest signup.test.js",
+    "test signin": "jest signin.test.js"
   },
   "license": "MIT",
   "dependencies": {
