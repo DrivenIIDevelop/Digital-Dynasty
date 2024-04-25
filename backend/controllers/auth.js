@@ -38,7 +38,7 @@ const signUp = async (req, res) => {
             return res.status(422).json({ error: error.message });
         }
         console.error('Error registering user:', error);
-        res.status(500).json({ error: 'Internal server error' });   
+        return res.status(500).json({ error: 'Internal server error' });   
     }
 };
 
@@ -69,10 +69,10 @@ const signIn = async(req, res) => {
         const { __v, password: userPassword, ...userWithoutPassword} = user.toObject();
         userWithoutPassword.token = token;
 
-        res.json(userWithoutPassword);
+        return res.json(userWithoutPassword);
     } catch(error){
         console.error("Error signing in user: ", error);
-        res.status(500).json({ error: 'Internal server error'})
+        return res.status(500).json({ error: 'Internal server error'})
     }
 };
 
@@ -83,11 +83,11 @@ const signOut = async (req, res) => {
         // Todo: Invalidate the token 
         // Discuss how we going to do this.
         // Could be just deleting the token in the client-side and nothing major
-        res.json({ message: 'You have successfully signed out.'});
+        return res.json({ message: 'You have successfully signed out.'});
 
     } catch(error) {
         console.error('Error signing out user: ', error);
-        res.status(500).json({ error: 'Internal server error' });
+        return res.status(500).json({ error: 'Internal server error' });
     }
 }
 
