@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const authRoutes = require('./routes/auth');
+const clientRoutes = require('./routes/clientRoutes');
 
 const app = express();
 
@@ -22,6 +23,9 @@ app.get("/", (req, res) => {
   res.json({ message: "Hello PU" });
 });
 
+
 app.use('/auth', authRoutes);
+
+app.use('/clients', clientRoutes);
 
 module.exports = app;
