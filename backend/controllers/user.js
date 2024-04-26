@@ -50,7 +50,7 @@ const updateUser = async (req, res) => {
 
         return res.json(userWithoutPassword);
     } catch (error) {
-        console.log('Error while updating a user: ', error);
+        console.error('Error while updating a user: ', error);
         return res.status(500).json({ error: 'Internal server error'});
     }
 }
