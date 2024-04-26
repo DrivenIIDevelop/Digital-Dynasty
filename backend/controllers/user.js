@@ -40,9 +40,8 @@ const updateUser = async (req, res) => {
             return res.status(404).json({ error: 'User not found.'});
         }
 
-        // Remove fields that we don't want to be update
-        const { __v, _id, username, password, ...updatedData } = req.body;
-        await User.updateOne({ _id : userId }, updatedData);
+        const updateData = req.body;
+        await User.updateOne({ _id : userId }, updateData);
         
         const updatedUser = await User.findOne({ _id: userId});
 
