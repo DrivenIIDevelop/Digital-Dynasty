@@ -3,6 +3,7 @@ const cors = require("cors");
 
 const authRoutes = require('./routes/auth');
 const clientRoutes = require('./routes/clientRoutes');
+const expenseRoutes = require('./routes/expenseRoutes'); // Import the expenseRoutes
 
 const app = express();
 
@@ -24,8 +25,11 @@ app.get("/", (req, res) => {
 });
 
 
-app.use('/auth', authRoutes);
+app.use('/expenses', expenseRoutes);
 
+// TODO: Add routes for other functionalities
+
+app.use('/auth', authRoutes);
 app.use('/clients', clientRoutes);
 
 module.exports = app;
