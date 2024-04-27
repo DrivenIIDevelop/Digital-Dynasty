@@ -1,0 +1,16 @@
+@use "../abstracts" as *;
+
+header {
+  padding-top: 5px;
+  .container {
+    display: flex;
+    @media (max-width: 567px) {
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    #logo {
+      margin-bottom: 15px;
+      margin-left: 15px;
+    }
+  }
+}

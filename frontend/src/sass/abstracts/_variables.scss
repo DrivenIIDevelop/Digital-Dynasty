@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&display=swap");
+
+/// Main heading font
+/// @type List
+$main-font-stack: "Playfair Display", serif !default;
+
+/// Second heading font
+/// @type List
+$secondary-font-stack: "VT323", monospace !default;
+
+/// Normal text font
+/// @type List
+$body-font-stack: "Crimson Pro", serif !default;
+
+// Colors
+$black: #000000;
+$white: #ffffff;
+$silver-chalice: #cad0d0;
+$light-yellow: #fdfb76;
+
+// The $green-cyan is more like a template color
+// $green-cyan: #00db96;
+$green-cyan: #09513d;
+// $green-cyan: #212725;
+// $green-cyan: #432e19;
+
+$turquoise: #12edd5;
+$blue-ribbon: #3797f8;
+$deep-purple: #49297e;
+$fuchsia-rose: #e10086;
+$slate-gray: #3e495d;
+$light-sky-blue: #90dcff;
+$ocean-blue: #455a91;
+$cadet-blue: #84abb0;
+$dark-blue-gray: #77969b;
+$light-green: #b6dcb7;
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+  "small": 320px,
+  "medium": 768px,
+  "large": 1024px,
+) !default;

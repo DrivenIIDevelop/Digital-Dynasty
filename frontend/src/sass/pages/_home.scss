@@ -1,0 +1,18 @@
+@use "../abstracts" as *;
+
+#home {
+  @include page-content("../../assets/home.png", $cadet-blue, 537px);
+  & > a {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    font-family: $secondary-font-stack;
+    color: black;
+    text-decoration: underline;
+    @media (max-width: 767px) {
+      font-size: 20px;
+    }
+  }
+}

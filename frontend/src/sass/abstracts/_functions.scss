@@ -1,0 +1,6 @@
+@use "./variables" as *;
+
+// Get Light color
+@function get-light-color($color) {
+  @return rgba($color, 0.8);
+}
