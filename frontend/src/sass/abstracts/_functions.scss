@@ -1,6 +1,6 @@
 @use "./variables" as *;
 
-// Get Light color
-@function get-light-color($color) {
-  @return rgba($color, 0.8);
+// Get Dark color
+@function dark-color($color, $amount: 5%) {
+  @return hsl(hue($color), saturation($color), lightness($color) - $amount);
 }

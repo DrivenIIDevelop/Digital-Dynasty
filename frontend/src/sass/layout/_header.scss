@@ -1,16 +1,100 @@
 @use "../abstracts" as *;
 
 header {
-  padding-top: 5px;
-  .container {
-    display: flex;
-    @media (max-width: 567px) {
-      justify-content: center;
-      margin-bottom: 20px;
+  margin-block: 24px;
+  padding-inline: 21px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  .logo {
+    @include media-query("l") {
+      width: 140px;
     }
-    #logo {
-      margin-bottom: 15px;
-      margin-left: 15px;
+    @include media-query("md") {
+      width: 140px;
+    }
+  }
+  .nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include media-query("md") {
+      order: 2;
+    }
+    .burger-icon {
+      display: none;
+      @include media-query("md") {
+        display: none;
+      }
+    }
+    .links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      @include media-query("l") {
+        gap: 10px;
+      }
+      @include media-query("md") {
+        position: absolute;
+        flex-direction: column;
+        align-items: stretch;
+        top: 120%;
+        left: 0;
+        width: 100%;
+        background-color: rgba($blue, 1);
+        color: $white;
+        padding-block: 1px;
+        gap: 5px;
+      }
+      li {
+        a {
+          color: rgba($black, 0.6);
+          padding: 5px 10px;
+          @include on-event {
+            color: dark-color($black, 10%);
+          }
+          @include media-query("md") {
+            padding: 10px 10px;
+            color: $white;
+            width: 100%;
+            font-weight: bold;
+            text-align: center;
+            display: block;
+            @include on-event {
+              background-color: dark-color($white, 10%);
+              color: $blue;
+            }
+          }
+        }
+      }
+    }
+  }
+  .authentication {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    a {
+      padding: 7px 15px;
+      border-radius: 3px;
+      @include media-query("l") {
+        padding: 5px 10px;
+      }
+      &.login {
+        background-color: rgba($blue, 0.1);
+        color: dark-color($blue, 10%);
+        @include on-event {
+          background-color: rgba($blue, 0.2);
+        }
+      }
+      &.signup {
+        background-color: $blue;
+        color: $white;
+        @include on-event {
+          background-color: dark-color($blue, 10%);
+        }
+      }
     }
   }
 }
