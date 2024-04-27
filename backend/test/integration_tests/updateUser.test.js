@@ -9,7 +9,7 @@ describe('Test user management - updating user', () => {
 
     test('Should update and return an updated user', (done) => {
         request(app)
-            .post('/user/profile/662a76b212d26eb1e9589b94')
+            .put('/user/profile/662a76b212d26eb1e9589b94')
             .send({
                 username: 'costa_silva',
                 firstName: 'Costa',
@@ -30,7 +30,7 @@ describe('Test user management - updating user', () => {
 
     test('Should return a 404 if no user exists for the given user', (done) => {
         request(app)
-            .post('/user/profile/662a76b212d26eb1e9589b93')
+            .put('/user/profile/662a76b212d26eb1e9589b93')
             .expect(404, done);
     });
 
