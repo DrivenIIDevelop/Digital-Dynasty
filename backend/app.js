@@ -26,10 +26,8 @@ app.get("/", (req, res) => {
 });
 
 
+
 app.use('/expenses', expenseRoutes);
-
-// TODO: Add routes for other functionalities
-
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/clients', clientRoutes);
