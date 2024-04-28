@@ -3,10 +3,10 @@ const router = express.Router();
 const expenseController = require('../controllers/expenseController');
 
 // list all expenses
-router.get('/expenses', expenseController.getAllExpenses);
+router.get('/', expenseController.getAllExpenses);
 
 // create new expense
-router.post('/expenses', expenseController.createExpense);
+router.post('/', expenseController.createExpense);
 
 // retrieve expense details
 router.get('/expenses/:expense_id', expenseController.getExpenseById);

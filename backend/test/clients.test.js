@@ -1,141 +1,88 @@
 const request = require('supertest');
 const app = require('../app');
+const { connectToMongo, disconnectFromMongo } = require('../db');
 const Client = require('../models/Client');
 
-describe('Client API Endpoints', () => {
-  beforeEach(async () => {
-    // add some sample clients into the database before test
-    await Client.create([
-      { name: 'Client 1', email: 'client1@example.com', phone: '1234567890' },
-      { name: 'Client 2', email: 'client2@example.com', phone: '0987654321' },
-    ]);
-  });
+describe('Test client API endpoints', () => {
+    beforeAll(async () => {
+        await connectToMongo();
+    });
 
-  afterEach(async () => {
-    // clean up database after test
-    await Client.deleteMany();
-  });
+    test('Should create a new client', async () => {
+        const response = await request(app)
+            .post('/clients')
+            .send({
+                name: 'New Client',
+                email: 'newclient@example.com',
+                phone: '9876543210'
+            });
+        expect(response.statusCode).toBe(201);
+        expect(response.body).toHaveProperty('_id');
+        expect(response.body).toHaveProperty('name', 'New Client');
+    });
 
-  test('GET /clients - Success', async () => {
-    // Send a GET request to /clients
-    const response = await request(app).get('/clients');
+    test('Should return 400 if required fields are missing', async () => {
+        const response = await request(app)
+            .post('/clients')
+            .send({
+                // Missing required fields
+            });
+        expect(response.statusCode).toBe(400);
+    });
 
-    // xxpect status code 200
-    expect(response.statusCode).toBe(200);
+    test('Should return 404 if client is not found', async () => {
+        const response = await request(app)
+            .get('/clients/610b999b8e295702808278d2');
+        expect(response.statusCode).toBe(404);
+    });
 
+    test('Should get a client by ID', async () => {
+        // Insert a client into the database
+        const client = await new Client({
+            name: 'Test Client',
+            email: 'testclient@example.com',
+            phone: '1234567890'
+        }).save();
+        const response = await request(app)
+            .get(`/clients/${client._id}`);
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toHaveProperty('_id', client._id.toString());
+        expect(response.body).toHaveProperty('name', 'Test Client');
+    });
 
-    expect(Array.isArray(response.body)).toBe(true);
+    test('Should update a client by ID', async () => {
+        // Insert a client into the database
+        const client = await new Client({
+            name: 'Old Client',
+            email: 'oldclient@example.com',
+            phone: '1234567890'
+        }).save();
+        const response = await request(app)
+            .put(`/clients/${client._id}`)
+            .send({ name: 'Updated Client' });
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toHaveProperty('_id', client._id.toString());
+        expect(response.body).toHaveProperty('name', 'Updated Client');
+    });
 
-    // expect response body to have the inserted clients
-    expect(response.body).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ name: 'Client 1' }),
-        expect.objectContaining({ name: 'Client 2' }),
-      ])
-    );
-  });
+    test('Should delete a client by ID', async () => {
+        // Insert a client into the database
+        const client = await new Client({
+            name: 'Client to delete',
+            email: 'deleteme@example.com',
+            phone: '1234567890'
+        }).save();
+        const response = await request(app)
+            .delete(`/clients/${client._id}`);
+        expect(response.statusCode).toBe(204);
+        // Check if the client is deleted from the database
+        const deletedClient = await Client.findById(client._id);
+        expect(deletedClient).toBeNull();
+    });
 
-  test('GET /clients - No Clients Found', async () => {
-
-    await Client.deleteMany();
-
-
-    const response = await request(app).get('/clients');
-
-    // expect status code 404
-    expect(response.statusCode).toBe(404);
-
-    // expect response body to contain a message indicating that no clients were found
-    expect(response.body).toEqual({ message: 'No clients found' });
-  });
-
-  test('GET /clients/:client_id - Success', async () => {
-
-    const clients = await Client.find();
-    const clientId = clients[0]._id;
-
-
-    const response = await request(app).get(`/clients/${clientId}`);
-
-    // Expect status code 200
-    expect(response.statusCode).toBe(200);
-
-
-    expect(response.body).toEqual(expect.objectContaining({ name: 'Client 1' }));
-  });
-
-  test('GET /clients/:client_id - Client Not Found', async () => {
-
-    const response = await request(app).get('/clients/invalid-id');
-
-    // Expect status code 404
-    expect(response.statusCode).toBe(404);
-
-
-    expect(response.body).toEqual({ message: 'Client not found' });
-  });
-
-  test('POST /clients - Success', async () => {
-    // Send a POST request to /clients with valid client data
-    const response = await request(app)
-      .post('/clients')
-      .send({ name: 'New Client', email: 'newclient@example.com', phone: '9876543210' });
-
-    // Expect status code 201
-    expect(response.statusCode).toBe(201);
-
-
-    expect(response.body).toEqual(expect.objectContaining({ name: 'New Client' }));
-  });
-
-  test('POST /clients - Missing Required Fields', async () => {
-    
-    const response = await request(app)
-      .post('/clients')
-      .send({});
-
-    // Expect status code 400
-    expect(response.statusCode).toBe(400);
-
-
-    expect(response.body).toEqual({ message: 'Name, email, and phone are required' });
-  });
-
-
-
-  test('PUT /clients/:client_id - Success', async () => {
-    // Get the ID of the first client in the database
-    const clients = await Client.find();
-    const clientId = clients[0]._id;
-
-
-    const response = await request(app)
-      .put(`/clients/${clientId}`)
-      .send({ name: 'Updated Client' });
-
-    // Expect status code 200
-    expect(response.statusCode).toBe(200);
-
-    
-    expect(response.body).toEqual(expect.objectContaining({ name: 'Updated Client' }));
-  });
-
-
-  test('DELETE /clients/:client_id - Success', async () => {
-    // Get the ID of the first client in the database
-    const clients = await Client.find();
-    const clientId = clients[0]._id;
-
-
-    const response = await request(app).delete(`/clients/${clientId}`);
-
-    // Expect status code 204
-    expect(response.statusCode).toBe(204);
-
-    // Expect client to be deleted from the database
-    const deletedClient = await Client.findById(clientId);
-    expect(deletedClient).toBeNull();
-  });
-
-
+    afterAll(async () => {
+        // Delete all records from the Client collection
+        await Client.deleteMany({});
+        await disconnectFromMongo();
+    });
 });

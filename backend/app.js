@@ -4,7 +4,7 @@ const cors = require("cors");
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const clientRoutes = require('./routes/clientRoutes');
-const expenseRoutes = require('./routes/expenseRoutes'); // Import the expenseRoutes
+const expenseRoutes = require('./routes/expenseRoutes');
 
 const app = express();
 
