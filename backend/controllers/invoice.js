@@ -28,7 +28,7 @@ const getInvoiceById = async (req, res) => {
         const invoice = await Invoice.findOne({ _id: invoiceId});
 
         if(!invoice){
-            console.error('Invoice not found');
+            console.error('Invoice with provided Invoice Id not found');
             return res.status(404).json({ error: 'Invoice not found'});
         }
 
@@ -44,7 +44,7 @@ const createInvoice = async (req, res) => {
     try {
         const { user_id, client_id, invoice_date, amount, status } = req.body;
 
-        if(!user_id || !client_id || !invoice_date || !amount || status ){
+        if(!user_id || !client_id || !invoice_date || !amount || !status ){
             console.error('All the fields are required');
             return res.status(400).json({ error: 'All the fields are required'});
         }
@@ -60,11 +60,50 @@ const createInvoice = async (req, res) => {
 };
 
 const updateInvoice = async (req, res) => {
-    console.log("Updating invoice")
+    try {
+        const invoiceId = req.params.invoiceId;
+        if (!invoiceId){
+            console.error('Invalid Invoice Id');
+            return res.status(404).json({ error: 'Invoice not found'});
+        }
+    
+        const invoice = await Invoice.findOne({_id: invoiceId});
+
+        if(!invoice){
+            console.error('Invoice with provided Invoice Id not found');
+            return res.status(404).json({ error: 'Invoice not found'});
+        }
+    
+        // Todo: Allow users to only update their Invoices (Authorization)
+        await Invoice.updateOne({_id: invoiceId}, req.body);
+        const updatedInvoice = await Invoice.find({_id: invoiceId});
+    
+        return res.json(updatedInvoice);
+    } catch (error) {
+        console.error('Error while updating an invoice: ', error);
+        return res.status(500).json({ error: 'Internal Server error'});
+    }
 };
 
 const deleteInvoice = async (req, res) => {
-    console.log("Deleting invoice")
+    const invoiceId = req.params.invoiceId;
+    
+    if (!invoiceId){
+        console.error('Invalid Invoice Id');
+        return res.status(404).json({ error: 'Invoice not found'});
+    }
+
+    const invoice = await Invoice.findOne({_id: invoiceId});
+
+    if(!invoice){
+        console.error('Invoice with provided Invoice Id not found');
+        return res.status(404).json({ error: 'Invoice not found'});
+    }
+
+    // Todo: Allow users to only delete their Invoices (Authorization)
+    await Invoice.deleteOne({ _id: invoiceId});
+
+    return res.status(204).json()
 };
 
 module.exports = {
