@@ -9,7 +9,8 @@
     "test signin": "jest signin.test.js",
     "test retrieveUser": "jest retrieveUser.test.js",
     "test updateUser": "jest updateUser.test.js",
-    "test invoice": "jest invoice.test.js"
+    "test invoice": "jest invoice.test.js",
+    "test client": "jest clients.test.js"
   },
   "license": "MIT",
   "dependencies": {

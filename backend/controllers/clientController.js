@@ -31,24 +31,24 @@ exports.createClient = async (req, res) => {
   try {
     const { name, email, phone } = req.body;
 
-    // Check for required fields
+    // check for required fields, 
     if (!name || !email || !phone) {
       return res.status(400).json({ message: 'Name, email, and phone are required' });
     }
 
-    // Validate email format
+    // validate email format
     const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ message: 'Invalid email format' });
     }
 
-    // Validate phone format
+    // validate phone nymber format
     const phoneRegex = /^[0-9]{10}$/;
     if (!phoneRegex.test(phone)) {
       return res.status(400).json({ message: 'Invalid phone number format' });
     }
 
-    // Check if the client already exists
+    // check if the client already exists
     const existingClient = await Client.findOne({ email }).exec();
     if (existingClient) {
       return res.status(400).json({ message: 'Client already exists' });
