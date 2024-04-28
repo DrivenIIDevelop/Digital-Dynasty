@@ -4,7 +4,6 @@ const LogoSmall = () => {
       width="43"
       height="34"
       viewBox="0 0 43 34"
-      // className="logo"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

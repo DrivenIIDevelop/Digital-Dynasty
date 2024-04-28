@@ -1,0 +1,14 @@
+@use "../abstracts" as *;
+
+#footer {
+  background-color: dark-color($gray, 5%);
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p {
+    color: rgba($black, 0.9);
+    font-size: 18px;
+    letter-spacing: 0.5px;
+  }
+}

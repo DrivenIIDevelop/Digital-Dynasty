@@ -4,15 +4,15 @@
 
 /// Main heading font
 /// @type List
-$main-font-stack: "Aboreto", cursive !default;
+$primary-font-stack: "Aboreto", cursive !default;
 
 /// Second heading font
 /// @type List
-$secondary-font-stack: "Abhaya Libre", serif !default;
+$secondary-font-stack: "Crimson Pro", serif !default;
 
 /// Normal text font
 /// @type List
-$body-font-stack: "Crimson Pro", serif !default;
+$body-font-stack: "Abhaya Libre", serif !default;
 
 // Colors
 $black: #000000;
@@ -23,6 +23,7 @@ $pink: #e92c81;
 $red: #c71610;
 $green: #1dd75b;
 $yellow: #d29211;
+$gray: #fafafbff;
 
 // Delay
 $delay: 0.3s;

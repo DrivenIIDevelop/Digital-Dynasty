@@ -53,9 +53,6 @@ const Header = () => {
             <li>
               <a href="#pricing">Pricing</a>
             </li>
-            <li>
-              <a href="#help">Help center</a>
-            </li>
           </motion.ul>
         ) : null}
       </nav>

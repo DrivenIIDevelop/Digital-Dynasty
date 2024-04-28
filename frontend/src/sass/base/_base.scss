@@ -12,9 +12,11 @@ html {
 *::after {
   box-sizing: inherit;
 }
-/**
- * Basic styles for links
- */
+
+body {
+  scroll-behavior: smooth;
+  -webkit-scroll-behavior: smooth;
+}
 
 img {
   width: 100%;

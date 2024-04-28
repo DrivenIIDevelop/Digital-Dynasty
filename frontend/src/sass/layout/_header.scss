@@ -1,6 +1,7 @@
 @use "../abstracts" as *;
 
 header {
+  font-family: $secondary-font-stack;
   margin-block: 24px;
   padding-inline: 21px;
   display: flex;
@@ -33,20 +34,22 @@ header {
       align-items: center;
       justify-content: center;
       gap: 20px;
+      z-index: 1000;
       @include media-query("l") {
         gap: 10px;
       }
       @include media-query("md") {
-        position: absolute;
-        flex-direction: column;
-        align-items: stretch;
         top: 120%;
         left: 0;
         width: 100%;
-        background-color: rgba($blue, 1);
-        color: $white;
-        padding-block: 1px;
-        gap: 5px;
+        position: absolute;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0px;
+        color: $blue;
+        background-color: $white;
+        box-shadow: 0 3px 10px rgba($black, 0.5);
+        // backdrop-filter: blur(5px);
       }
       li {
         a {
@@ -56,15 +59,31 @@ header {
             color: dark-color($black, 10%);
           }
           @include media-query("md") {
-            padding: 10px 10px;
-            color: $white;
+            padding: 15px 10px;
+            font-size: 16px;
+            color: $blue;
             width: 100%;
             font-weight: bold;
             text-align: center;
             display: block;
+            border-bottom: 1px solid currentColor;
+            position: relative;
+            &::before {
+              content: "";
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 0%;
+              height: 100%;
+              background-color: rgba($blue, 0.1);
+              transition: $delay;
+              z-index: -1;
+            }
             @include on-event {
-              background-color: dark-color($white, 10%);
               color: $blue;
+              &::before {
+                width: 100%;
+              }
             }
           }
         }
@@ -90,9 +109,10 @@ header {
       }
       &.signup {
         background-color: $blue;
+        background-color: dark-color($blue, 5%);
         color: $white;
         @include on-event {
-          background-color: dark-color($blue, 10%);
+          background-color: dark-color($blue, 15%);
         }
       }
     }
