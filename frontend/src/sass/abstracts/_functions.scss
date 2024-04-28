@@ -1,0 +1,6 @@
+@use "./variables" as *;
+
+// Get Dark color
+@function dark-color($color, $amount: 5%) {
+  @return hsl(hue($color), saturation($color), lightness($color) - $amount);
+}

@@ -1,0 +1,11 @@
+@use "../abstracts" as *;
+
+// -----------------------------------------------------------------------------
+
+body {
+  color: $black;
+  font: normal 120% / 1.4 $body-font-stack;
+  @include media-query("l") {
+    font-size: 110%;
+  }
+}

@@ -1,0 +1,410 @@
+@use "../abstracts" as *;
+
+#home {
+  font-size: 1rem;
+  @include media-query("xl") {
+    font-size: 0.9rem;
+  }
+  // Hero section
+  #hero {
+    background-color: $blue;
+    color: $white;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 20em;
+      height: 20em;
+      background-color: rgba($white, 0.3);
+      backdrop-filter: blur(5px);
+      z-index: 1;
+    }
+    &::before {
+      top: 0;
+      right: 0;
+      transform: rotate(5deg) translate(10%, -50%);
+      @include media-query("l") {
+        transform: rotate(5deg) translate(75%, -70%);
+      }
+    }
+    &::after {
+      bottom: 0;
+      left: 0;
+      transform: rotate(5deg) translate(-30%, 70%);
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      padding-block: 104px 57px;
+      position: relative;
+      z-index: 2;
+      @include media-query("l") {
+        justify-content: center;
+        text-align: center;
+        padding-block: 70px;
+      }
+
+      .text {
+        width: 535px;
+        z-index: 2;
+        h1 {
+          font-family: $primary-font-stack;
+          font-size: 3em;
+        }
+        p {
+          font-size: 1.2em;
+          font-weight: 600;
+          margin-bottom: 1.2em;
+        }
+        button {
+          padding: 10px 20px;
+          background-color: $white;
+          border: none;
+          position: relative;
+          overflow: hidden;
+          cursor: pointer;
+          &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            transform: translate(-100%, 100%);
+            background-color: rgba($blue, 0.1);
+            transition: $delay;
+          }
+          &:hover {
+            &::before {
+              transform: translate(0, 0);
+            }
+          }
+          a {
+            color: $blue;
+            font-weight: 600;
+            font-size: 1.2em;
+          }
+        }
+      }
+      .image {
+        flex: 1;
+        @include media-query("l") {
+          display: none;
+        }
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  // Services section
+  #services {
+    .container {
+      &:first-of-type {
+        .text {
+          h2 {
+            .highlight {
+              color: $pink;
+            }
+          }
+        }
+        .image {
+          order: -1;
+          @include media-query("l") {
+            transform: rotate(15deg) translate(0, 50%);
+          }
+          @include media-query("sm") {
+            transform: rotate(15deg) translate(0, 60%);
+          }
+        }
+      }
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 110px;
+      padding-block: 104px 57px;
+      overflow: hidden;
+      z-index: 2;
+      @include media-query("l") {
+        justify-content: center;
+        text-align: center;
+        // padding-block: 70px;
+      }
+
+      .text {
+        width: 535px;
+        z-index: 2;
+        & > span {
+          color: rgba($black, 0.7);
+        }
+        h2 {
+          .highlight {
+            color: $blue;
+          }
+          font-family: $primary-font-stack;
+          font-size: 3em;
+        }
+        p {
+          font-size: 1.2em;
+          font-weight: 600;
+          margin-bottom: 1.2em;
+          color: rgba($black, 0.7);
+        }
+      }
+      .image {
+        flex: 1;
+        max-width: 571px;
+        @include media-query("l") {
+          min-width: 571px;
+          position: absolute;
+          z-index: -2;
+          // filter: brightness(50%) blur(5px);
+          transform: rotate(-15deg) translate(0, 50%);
+        }
+        @include media-query("sm") {
+          transform: rotate(-15deg) translate(0, 60%);
+        }
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  // Solution section
+  #solutions {
+    .container {
+      position: relative;
+      margin-block: 20px;
+      height: 388px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $gray;
+      border-radius: 3px;
+      overflow: hidden;
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        width: 10em;
+        height: 10em;
+        background-color: rgba($pink, 0.9);
+        @include media-query("sm") {
+          background-color: rgba($pink, 0.7);
+        }
+      }
+      &::before {
+        top: 0;
+        right: 0;
+        transform: rotate(5deg) translate(10%, -50%);
+        @include media-query("l") {
+          transform: rotate(5deg) translate(75%, -70%);
+        }
+      }
+      &::after {
+        bottom: 0;
+        left: 0;
+        transform: rotate(5deg) translate(-30%, 70%);
+      }
+
+      .text {
+        max-width: 687px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 39px;
+        p {
+          font-size: 1.1em;
+        }
+        button {
+          padding: 10px 20px;
+          font-weight: 500;
+          background-color: $pink;
+          border: none;
+          cursor: pointer;
+          transition: $delay;
+          @include on-event {
+            background-color: dark-color($pink, 10%);
+          }
+          a {
+            font-size: 1em;
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+
+  // Pricing section
+  #pricing {
+    margin-block: 20px;
+    padding-block: 66px;
+    h2 {
+      font-family: $primary-font-stack;
+      font-size: 3em;
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-content: inherit;
+      flex-wrap: wrap;
+      gap: 20px;
+      .card {
+        position: relative;
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 47px 10px 24px;
+        background-color: $gray;
+        border-radius: 4px;
+        &.popular {
+          background-color: rgba($blue, 0.1);
+          border: 2px solid $blue;
+          .most-popular {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 164px;
+            height: 28px;
+            font-size: 11px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $blue;
+            color: $white;
+            transform: translateX(-50%);
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
+          }
+          button {
+            background-color: $blue;
+            @include on-event {
+              background-color: dark-color($blue, 10%);
+            }
+            &::before,
+            &::after,
+            a::before,
+            a::after {
+              display: none;
+            }
+            a {
+              color: $white;
+            }
+          }
+        }
+        .card-title {
+          font-family: $primary-font-stack;
+          font-size: 2em;
+          margin-bottom: 0.4em;
+        }
+        .card-description {
+          font-size: 14px;
+        }
+        .price {
+          margin-block: 1.5em 3.5em;
+          display: flex;
+          align-items: end;
+          gap: 0.2em;
+          .pricing-structure {
+            font-family: $primary-font-stack;
+            font-size: 3em;
+            font-weight: bold;
+            line-height: normal;
+          }
+          .billing-term {
+            font-size: 0.8em;
+            display: block;
+            max-width: 11ch;
+            padding-bottom: 0.1em;
+            line-height: 1.7;
+          }
+        }
+        .features {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-bottom: 40px;
+          li {
+            display: flex;
+            gap: 6px;
+          }
+        }
+        button {
+          position: relative;
+          height: 52px;
+          width: 338px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: none;
+          background-color: transparent;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: $delay;
+          &::before,
+          &::after,
+          a::before,
+          a::after {
+            content: "";
+            position: absolute;
+            background-color: $blue;
+            transition: $delay;
+          }
+          &::before {
+            height: 2px;
+            width: 0;
+            left: 0;
+            bottom: 0;
+          }
+          &::after {
+            height: 0;
+            width: 2px;
+            right: 0;
+            bottom: 0;
+          }
+          a::before {
+            height: 2px;
+            width: 0;
+            right: 0;
+            top: 0;
+          }
+          a::after {
+            height: 0;
+            width: 2px;
+            left: 0;
+            top: 0;
+          }
+          @include on-event {
+            background-color: rgba($blue, 0.1);
+            &::before,
+            a::before {
+              width: 100%;
+            }
+
+            &::after,
+            a::after {
+              height: 100%;
+            }
+          }
+          a {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: $blue;
+          }
+        }
+      }
+    }
+  }
+}

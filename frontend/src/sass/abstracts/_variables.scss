@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Aboreto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Aboreto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&display=swap");
+
+/// Main heading font
+/// @type List
+$primary-font-stack: "Aboreto", cursive !default;
+
+/// Second heading font
+/// @type List
+$secondary-font-stack: "Crimson Pro", serif !default;
+
+/// Normal text font
+/// @type List
+$body-font-stack: "Abhaya Libre", serif !default;
+
+// Colors
+$black: #000000;
+$white: #ffffff;
+$blue: #447ae3;
+$light-blue: #7ea3ec;
+$pink: #e92c81;
+$red: #c71610;
+$green: #1dd75b;
+$yellow: #d29211;
+$gray: #fafafbff;
+
+// Delay
+$delay: 0.3s;

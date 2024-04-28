@@ -1,0 +1,32 @@
+@use "../abstracts" as *;
+
+/**
+ * Set up a decent box model on the root element
+ */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  scroll-behavior: smooth;
+  -webkit-scroll-behavior: smooth;
+}
+
+img {
+  width: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: $black;
+}
