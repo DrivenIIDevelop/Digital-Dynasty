@@ -26,6 +26,7 @@ app.get("/", (req, res) => {
 });
 
 
+
 app.use('/expenses', expenseRoutes);
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
