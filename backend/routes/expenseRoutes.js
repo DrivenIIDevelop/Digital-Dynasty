@@ -9,12 +9,12 @@ router.get('/', expenseController.getAllExpenses);
 router.post('/', expenseController.createExpense);
 
 // retrieve expense details
-router.get('/expenses/:expense_id', expenseController.getExpenseById);
+router.get('/:expense_id', expenseController.getExpenseById);
 
 // update expense ditails
-router.put('/expenses/:expense_id', expenseController.updateExpense);
+router.put('/:expense_id', expenseController.updateExpense);
 
 // delete expense
-router.delete('/expenses/:expense_id', expenseController.deleteExpense);
+router.delete('/:expense_id', expenseController.deleteExpense);
 
 module.exports = router;

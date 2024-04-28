@@ -8,6 +8,12 @@ const signUp = async (req, res) => {
     try {
         const { email, password, ...otherFields } = req.body;
 
+        // Should check all fields not just email and password.
+        if(!email | !password ){
+            console.error('All the fields are required');
+            return res.status(400).json({ error: 'All the fields are required'});
+        }
+
         // Check if the user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
