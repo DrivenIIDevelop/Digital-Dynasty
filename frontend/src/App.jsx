@@ -1,15 +1,17 @@
 import Home from "./pages/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SignUp from "./pages/SignUp";
-
+import { lazy, Suspense } from "react";
+const SignUp = lazy(() => import("./pages/SignUp"));
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/signup" element={<SignUp />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 }

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import LogoRegular from "../components/icons/LogoRegular";
-import { motion } from "framer-motion";
 import imageLoader from "../js/imageLoader";
 import { useState } from "react";
 
@@ -56,12 +55,12 @@ const SignUp = () => {
             Already have an account? <Link to="/signin">Sign In</Link>
           </p>
         </div>
-        <motion.div className="carousel">
-          <motion.div className="inner-carousel">
+        <div className="carousel">
+          <div className="inner-carousel">
             {imageLoader.map((image, index) => (
-              <motion.div
+              <div
                 style={{
-                  translateX: `-${imageIndex * 100}%`,
+                  transform: `translateX(-${imageIndex * 100}%)`,
                   transition: "all 0.5s ease-in-out",
                 }}
                 key={index}
@@ -70,9 +69,9 @@ const SignUp = () => {
                 <img loading="lazy" src={image.src} alt={image.title} />
                 <h2 className="title">{image.title}</h2>
                 <div className="description">{image.description}</div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
           <div className="carousel-control">
             <button
               className="arrow"
@@ -103,7 +102,7 @@ const SignUp = () => {
               &rarr;
             </button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
