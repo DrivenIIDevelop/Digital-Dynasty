@@ -6,29 +6,18 @@ import { PORT } from "../port";
  * @param {Event} e - The event object.
  * @return {string} Returns an error message if any.
  */
-export default async function SignUpApi(e) {
+export default async function httpRequest(url, http_method, request_headers, request_body) {
   try {
-    const res = await fetch(`http://localhost:${PORT}/auth/signup/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: e.target.username.value,
-        email: e.target.email.value,
-        password: e.target.password.value,
-        firstName: e.target.firstName.value,
-        lastName: e.target.lastName.value,
-        country: e.target.country.value,
-        address: e.target.address.value,
-        zipcode: e.target.zipcode.value,
-        phone: e.target.phone.value,
-      }),
-    });
+    const res = await fetch(url, {
+      method: http_method,
+      headers: request_headers,
+      body: request_body
+     });
 
     const data = await res.json();
     if (data?.error) throw data;
   } catch (error) {
     return error.error;
   }
+}
 }
