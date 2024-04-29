@@ -1,46 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LogoRegular from "../components/icons/LogoRegular";
 import imageLoader from "../js/imageLoader";
 import { useState } from "react";
-import { PORT } from "../port";
+import signUpApi from "../js/signUpApi";
 
 const SignUp = () => {
   const [imageIndex, setImageIndex] = useState(0);
   const [isEmailDuplicated, setIsEmailDuplicated] = useState(false);
   const [isUsernameDuplicated, setIsUsernameDuplicated] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  /**
+   * Handles form submission, prevents default behavior, checks for duplication errors,
+   * and updates state accordingly.
+   *
+   * @param {Event} e - The event object.
+   * @return {void} - No return value.
+   */
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch(`http://localhost:${PORT}/auth/signup/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: e.target.username.value,
-        email: e.target.email.value,
-        password: e.target.password.value,
-        firstName: e.target.firstName.value,
-        lastName: e.target.lastName.value,
-        country: e.target.country.value,
-        address: e.target.address.value,
-        zipcode: e.target.zipcode.value,
-        phone: e.target.phone.value,
-      }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data?.error) throw data;
-        // Navigate to login page
-      })
-      .catch((err) => {
-        if (err?.error === "User with email already exists")
-          setIsEmailDuplicated(true);
-        if (err?.error === "User with username already exists")
-          setIsUsernameDuplicated(true);
-      });
+    setIsEmailDuplicated(false);
+    setIsUsernameDuplicated(false);
+    setLoading(true);
+
+    const duplicationError = await signUpApi(e);
+    // Handle duplication errors
+    if (duplicationError === "User with email already exists")
+      setIsEmailDuplicated(true);
+    if (duplicationError === "User with username already exists")
+      setIsUsernameDuplicated(true);
+    // Navigate to login page
+    if (!duplicationError) navigate("/login");
   };
 
   return (
@@ -62,6 +53,7 @@ const SignUp = () => {
                 name="username"
                 id="username"
                 title="Username"
+                minLength="3"
                 required
               />
               {isUsernameDuplicated && (
@@ -166,12 +158,12 @@ const SignUp = () => {
                 required
               />
             </label>
-            <button className="submit" type="submit">
-              Sign Up
+            <button className="submit" disabled={loading} type="submit">
+              {loading ? "Loading..." : "Sign Up"}
             </button>
           </form>
           <p>
-            Already have an account? <Link to="/signin">Sign In</Link>
+            Already have an account? <Link to="/login">Log in</Link>
           </p>
         </div>
         <div className="carousel">
