@@ -22,7 +22,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header>
+    <header id="header">
       {isDesktop ? <LogoRegular /> : <LogoSmall />}
 
       <nav className="nav">

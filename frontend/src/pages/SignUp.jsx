@@ -56,9 +56,9 @@ const SignUp = () => {
       }),
     });
     // Handle duplication errors
-    if (duplicationError === "User with email already exists")
+    if (duplicationError?.error === "User with email already exists")
       setIsEmailDuplicated(true);
-    if (duplicationError === "User with username already exists")
+    if (duplicationError?.error === "User with username already exists")
       setIsUsernameDuplicated(true);
     // Navigate to login page
     if (!duplicationError) navigate("/login");
