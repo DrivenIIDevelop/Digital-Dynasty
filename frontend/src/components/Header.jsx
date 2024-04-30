@@ -39,7 +39,7 @@ const Header = () => {
         <ul
           className="links"
           style={{
-            transform: `translateY(${open ? "0" : "-200%"})`,
+            transform: `translateY(${isDesktop || open ? "0" : "-200%"})`,
             transition: "transform 0.3s ease-in-out",
           }}
         >
