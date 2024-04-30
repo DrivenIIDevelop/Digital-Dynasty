@@ -2,13 +2,19 @@ import { Link, useNavigate } from "react-router-dom";
 import LogoRegular from "../components/icons/LogoRegular";
 import imageLoader from "../js/imageLoader";
 import { useState } from "react";
-import signUpApi from "../js/signUpApi";
+import httpRequest from "../js/httpRequest";
+import { PORT } from "../port";
 
 const SignUp = () => {
   const [imageIndex, setImageIndex] = useState(0);
   const [isEmailDuplicated, setIsEmailDuplicated] = useState(false);
   const [isUsernameDuplicated, setIsUsernameDuplicated] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
+  const [isValidUsername, setIsValidUsername] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  // Start checking fields after form submission
+  const [startChecking, setStartChecking] = useState(false);
   const navigate = useNavigate();
 
   /**
@@ -20,11 +26,35 @@ const SignUp = () => {
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsEmailDuplicated(false);
-    setIsUsernameDuplicated(false);
+    setStartChecking(true);
     setLoading(true);
+    if (
+      !isValidPhoneNumber ||
+      !isValidUsername ||
+      !isValidEmail ||
+      isEmailDuplicated ||
+      isUsernameDuplicated
+    )
+      return;
 
-    const duplicationError = await signUpApi(e);
+    const duplicationError = await httpRequest({
+      url: `http://localhost:${PORT}/auth/signup`,
+      http_method: "POST",
+      request_headers: {
+        "Content-Type": "application/json",
+      },
+      request_body: JSON.stringify({
+        firstName: e.target.firstName.value,
+        lastName: e.target.lastName.value,
+        username: e.target.username.value,
+        email: e.target.email.value,
+        password: e.target.password.value,
+        country: e.target.country.value,
+        address: e.target.address.value,
+        phone: e.target.phone.value,
+        zipcode: e.target.zipcode.value,
+      }),
+    });
     // Handle duplication errors
     if (duplicationError === "User with email already exists")
       setIsEmailDuplicated(true);
@@ -47,15 +77,28 @@ const SignUp = () => {
             <label htmlFor="username">
               Username
               <input
-                style={{ border: isUsernameDuplicated ? "1px solid red" : "" }}
+                style={{
+                  border:
+                    isUsernameDuplicated || (!isValidUsername && startChecking)
+                      ? "1px solid red"
+                      : "",
+                }}
                 type="text"
                 placeholder="John Doe"
                 name="username"
                 id="username"
                 title="Username"
-                minLength="3"
+                onChange={(e) => {
+                  setIsValidUsername(e.target.value.length >= 3);
+                  setIsUsernameDuplicated(false);
+                }}
                 required
               />
+              {isValidUsername || !startChecking ? (
+                ""
+              ) : (
+                <span className="error">Invalid username</span>
+              )}
               {isUsernameDuplicated && (
                 <span className="error">Username already exists</span>
               )}
@@ -87,17 +130,29 @@ const SignUp = () => {
             <label htmlFor="email">
               Email
               <input
-                style={{ border: isEmailDuplicated ? "1px solid red" : "" }}
-                type="email"
+                style={{
+                  border:
+                    (!isEmailDuplicated && isValidEmail) || !startChecking
+                      ? ""
+                      : "1px solid red",
+                }}
+                type="text"
                 placeholder="john@example.com"
                 name="email"
                 id="email"
                 title="Email"
-                onChange={() => setIsEmailDuplicated(false)}
+                onChange={(e) => {
+                  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                  setIsValidEmail(emailRegex.test(e.target.value));
+                  setIsEmailDuplicated(false);
+                }}
                 required
               />
               {isEmailDuplicated && (
                 <span className="error">Email already exists</span>
+              )}
+              {!isValidEmail && startChecking && (
+                <span className="error">Invalid email</span>
               )}
             </label>
             <div className="holder">
@@ -143,8 +198,20 @@ const SignUp = () => {
                 name="phone"
                 id="phone"
                 title="Phone"
+                onChange={(e) => {
+                  if (e.target.value === "") return setIsValidPhoneNumber(true);
+                  const phoneRegex = /^[0-9]{10}$/;
+                  setIsValidPhoneNumber(phoneRegex.test(e.target.value));
+                }}
+                style={{
+                  border:
+                    !isValidPhoneNumber && startChecking ? "1px solid red" : "",
+                }}
                 required
               />
+              {!isValidPhoneNumber && startChecking && (
+                <span className="error">Invalid phone number</span>
+              )}
             </label>
             <label htmlFor="password">
               Password
@@ -158,8 +225,8 @@ const SignUp = () => {
                 required
               />
             </label>
-            <button className="submit" disabled={loading} type="submit">
-              {loading ? "Loading..." : "Sign Up"}
+            <button className="submit" type="submit">
+              {loading === 2 ? "Loading..." : "Sign Up"}
             </button>
           </form>
           <p>
