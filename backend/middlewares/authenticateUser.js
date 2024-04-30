@@ -9,7 +9,7 @@ const authenticateUser = async(req, res, next) => {
         next();
     } catch (error) {
         console.error('Error while authenticating user: ', error);
-        throw error;
+        return res.status(401).json('Unauthorized user');
     }
 };
 

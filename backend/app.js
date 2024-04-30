@@ -1,10 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 
+const authenticateUser = require('./middlewares/authenticateUser');
+
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const clientRoutes = require('./routes/clientRoutes');
 const invoiceRoutes = require('./routes/invoice');
+const expenseRoutes = require('./routes/expenseRoutes')
 
 const app = express();
 
@@ -27,10 +30,10 @@ app.get("/", (req, res) => {
 
 
 
-app.use('/expenses', expenseRoutes);
 app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
-app.use('/clients', clientRoutes);
-app.use('/invoices', invoiceRoutes);
+app.use('/expenses', authenticateUser, expenseRoutes);
+app.use('/user', authenticateUser, userRoutes);
+app.use('/clients', authenticateUser, clientRoutes);
+app.use('/invoices', authenticateUser, invoiceRoutes);
 
 module.exports = app;
