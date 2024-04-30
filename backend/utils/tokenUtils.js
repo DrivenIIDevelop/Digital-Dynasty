@@ -5,7 +5,7 @@ dotenv.config();
 const generateToken = async (userId) => {
     try {
         return jwt.sign({userId},  process.env.JWT_SECRET, {
-            expiresIn: '60s'
+            expiresIn: process.env.JWT_EXPIRY_TIME
         });
     } catch(error) {
         console.error('Error generating token:', error.message);

@@ -1,4 +1,4 @@
-const verifyToken = require('../utils/tokenUtils');
+const { verifyToken } = require('../utils/tokenUtils');
 
 const authenticateUser = async(req, res, next) => {
     try {
@@ -9,7 +9,7 @@ const authenticateUser = async(req, res, next) => {
         next();
     } catch (error) {
         console.error('Error while authenticating user: ', error);
-        return res.status(401).json('Unauthorized user');
+        return res.status(401).json({ error: 'Unauthorized user'});
     }
 };
 
