@@ -13,4 +13,17 @@ const generateToken = async (userId) => {
     }
 };
 
-module.exports = generateToken;
+const verifyToken = async (token) => {
+    try {
+        const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+        return decoded.userId
+    } catch (error) {
+       console.error('Error while validating user: ', error);
+       throw error; 
+    }
+}
+
+module.exports = {
+    generateToken,
+    verifyToken
+};
