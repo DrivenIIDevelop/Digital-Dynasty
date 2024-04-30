@@ -1,7 +1,7 @@
 const User = require("../models/User.model");
 const { hashPassword, verifyPassword } = require("../utils/passwordUtils");
 
-const generateToken = require("../utils/generateToken");
+const { generateToken } = require("../utils/tokenUtils");
 
 const signUp = async (req, res) => {
   try {
