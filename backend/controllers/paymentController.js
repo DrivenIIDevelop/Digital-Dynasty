@@ -1,14 +1,17 @@
 const Payment = require('../models/Payment');
 
 exports.getAllPayments = async (req, res) => {
-  try {
-    const payments = await Payment.find();
-    res.json(payments);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-};
+    try {
+      const payments = await Payment.find();
+      if (!payments || payments.length === 0) {
+        return res.status(404).json({ message: 'No payments found' });
+      }
+      res.json(payments);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  };  
 
 exports.createPayment = async (req, res) => {
   try {
@@ -49,7 +52,7 @@ exports.updatePayment = async (req, res) => {
     const { amount } = req.body;
 
     // Check if amount is present
-    if (!amount) {
+    if (!amount || amount < 1 ) {
       return res.status(400).json({ message: 'Amount is required for updating payment' });
     }
 
