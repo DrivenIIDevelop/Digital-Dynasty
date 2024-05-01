@@ -1,0 +1,182 @@
+@use "../abstracts" as *;
+
+#signup {
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    min-height: 100vh;
+    min-height: 100dvh;
+    @include media-query("xl") {
+      font-size: 0.8em;
+    }
+    @include media-query("l") {
+      flex-direction: column;
+      font-size: 1em;
+    }
+    @include media-query("md") {
+      font-size: 0.9em;
+    }
+    .text {
+      max-width: 27.312em;
+      min-height: 37.5em;
+      display: flex;
+      flex-direction: column;
+      margin-block: 4em;
+      .logo {
+        margin-inline: auto;
+      }
+      .title {
+        font-family: $primary-font-stack;
+        font-size: 2em;
+        text-align: center;
+        margin-block: 1em 0.5em;
+        line-height: 1.9em;
+        font-weight: 700;
+        span {
+          color: $blue;
+        }
+      }
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        margin-bottom: 5em;
+        .holder {
+          display: flex;
+          gap: 1em;
+        }
+        label {
+          font-size: 1em;
+          font-weight: 400;
+          .error {
+            color: $pink;
+            font-weight: bold;
+          }
+          input {
+            display: block;
+            width: 100%;
+            height: 2.375em;
+            background-color: dark-color($gray, 5%);
+            border: none;
+            padding-inline: 1em;
+            font-weight: 400;
+            &::placeholder {
+              color: dark-color($gray, 30%);
+            }
+            @include on-event {
+              outline: none;
+              box-shadow: 2px 2px 3px rgba($blue, 0.3);
+            }
+          }
+        }
+        .submit {
+          height: 2.75em;
+          display: block;
+          margin-top: 1em;
+          background-color: $blue;
+          color: $white;
+          border: none;
+          cursor: pointer;
+          transition: $delay;
+          @include on-event {
+            background-color: dark-color($blue, 10%);
+          }
+        }
+      }
+      & > p {
+        text-align: center;
+        a {
+          color: $blue;
+          font-weight: 700;
+          @include on-event {
+            color: dark-color($blue, 10%);
+          }
+        }
+      }
+    }
+    .carousel {
+      --width: 42.625em;
+      @include media-query("xl") {
+        --width: 33em;
+      }
+      @include media-query("md") {
+        --width: 38em;
+      }
+      @include media-query("sm") {
+        --width: 25em;
+      }
+      padding-bottom: 5em;
+      margin-bottom: 4em;
+      max-height: 51.6875em;
+      width: var(--width);
+      background-color: $blue;
+      overflow: hidden;
+      .inner-carousel {
+        display: flex;
+        width: max-content;
+        .item {
+          width: var(--width);
+          padding: 3em 3em 0;
+          text-align: center;
+          img {
+            pointer-events: none;
+            user-select: none;
+          }
+          .title {
+            font-size: 2em;
+            color: $white;
+            font-family: $primary-font-stack;
+            margin-block: 1em 0.7em;
+          }
+          .description {
+            color: $white;
+            font-weight: 0.9em;
+          }
+        }
+      }
+      .carousel-control {
+        margin-top: 1em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5em;
+        .bullet {
+          width: 0.625em;
+          aspect-ratio: 1/1;
+          border: none;
+          background-color: rgba($white, 0.5);
+          border-radius: 50%;
+          transition: $delay;
+          user-select: none;
+          cursor: pointer;
+          @include on-event {
+            background-color: $white;
+            transform: scale(1.2);
+            outline: none;
+          }
+          &.active {
+            background-color: $white;
+            transform: scale(1.2);
+          }
+        }
+        .arrow {
+          padding: 0.5em;
+          margin-inline: 0.5em;
+          display: block;
+          font-size: 1.5em;
+          color: rgba($black, 0.5);
+          background-color: transparent;
+          border: none;
+          transition: $delay;
+          user-select: none;
+          cursor: pointer;
+          @include on-event {
+            color: $black;
+          }
+        }
+      }
+    }
+  }
+}

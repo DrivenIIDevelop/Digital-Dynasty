@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 import { Squeeze as Hamburger } from "hamburger-react";
 import { useEffect, useState } from "react";
 import LogoSmall from "./icons/LogoSmall";
-import { motion } from "framer-motion";
 
 const Header = () => {
   const [isDesktop, setIsDesktop] = useState(true);
   const [open, setOpen] = useState(false);
 
-  // Handle window resize to toggle hamburger
+  // Handle window resize to toggle hamburger-icon
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 768);
@@ -37,24 +36,23 @@ const Header = () => {
           />
         )}
         {/* Display links based on state */}
-        {open || isDesktop ? (
-          <motion.ul
-            className="links"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            <li>
-              <a href="#services">Services</a>
-            </li>
-            <li>
-              <a href="#solutions">Solutions</a>
-            </li>
-            <li>
-              <a href="#pricing">Pricing</a>
-            </li>
-          </motion.ul>
-        ) : null}
+        <ul
+          className="links"
+          style={{
+            transform: `translateY(${open ? "0" : "-200%"})`,
+            transition: "transform 0.3s ease-in-out",
+          }}
+        >
+          <li>
+            <a href="#services">Services</a>
+          </li>
+          <li>
+            <a href="#solutions">Solutions</a>
+          </li>
+          <li>
+            <a href="#pricing">Pricing</a>
+          </li>
+        </ul>
       </nav>
       <div className="authentication">
         <Link className="login" to="/login">
