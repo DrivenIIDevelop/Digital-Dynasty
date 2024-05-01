@@ -49,7 +49,7 @@ exports.updatePayment = async (req, res) => {
     const { amount } = req.body;
 
     // Check if amount is present
-    if (!amount) {
+    if (!amount || amount < 1 ) {
       return res.status(400).json({ message: 'Amount is required for updating payment' });
     }
 
