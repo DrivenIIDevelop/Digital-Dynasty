@@ -10,15 +10,32 @@ exports.getAllPayments = async (req, res) => {
 };
 
 exports.createPayment = async (req, res) => {
-  try {
-    const { client_id, payment_date, amount, method } = req.body;
-    const payment = new Payment({ client_id, payment_date, amount, method });
-    await payment.save();
-    res.status(201).json(payment);
-  } catch (error) {
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
+    try {
+        const { client_id, payment_date, amount, method } = req.body;
+
+        // Check if required fields are present
+        if (!client_id || !payment_date || !amount || !method) {
+            return res.status(400).json({ message: 'Client ID, payment date, amount, and method are required' });
+        }
+
+        // Check if a payment with the same details already exists
+        const existingPayment = await Payment.findOne({ client_id, payment_date, amount, method });
+        if (existingPayment) {
+            return res.status(400).json({ message: 'Payment already exists' });
+        }
+
+        // Create the payment
+        const payment = new Payment({ client_id, payment_date, amount, method });
+        await payment.save();
+        
+        // Return the newly created payment
+        res.status(201).json(payment);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
 };
+
 
 exports.getPaymentById = async (req, res) => {
   try {
@@ -35,6 +52,12 @@ exports.getPaymentById = async (req, res) => {
 exports.updatePayment = async (req, res) => {
   try {
     const { client_id, payment_date, amount, method } = req.body;
+
+    // Check if required fields are present
+    if (!client_id || !payment_date || !amount || !method) {
+      return res.status(400).json({ message: 'Client ID, payment date, amount, and method are required' });
+    }
+
     const payment = await Payment.findByIdAndUpdate(req.params.payment_id, { client_id, payment_date, amount, method }, { new: true });
     if (!payment) {
       return res.status(404).json({ message: 'Payment not found' });
