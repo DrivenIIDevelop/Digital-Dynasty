@@ -11,7 +11,8 @@
     "test updateUser": "jest updateUser.test.js",
     "test invoice": "jest invoice.test.js",
     "test client": "jest clients.test.js",
-    "test vendor": "jest clients.test.js"
+    "test vendor": "jest vendors.test.js",
+    "test payment": "jest payments.test.js"
   },
   "license": "MIT",
   "dependencies": {
