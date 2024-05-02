@@ -1,0 +1,96 @@
+@use "../abstracts" as *;
+
+#login {
+  font-size: 1rem;
+  @include media-query("l") {
+    font-size: 0.9rem;
+  }
+  header .container {
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include media-query("sm") {
+      flex-direction: column;
+      gap: 2em;
+    }
+    p {
+      font-family: $primary-font-stack;
+      font-size: 1em;
+      font-weight: bold;
+      a {
+        color: $blue;
+      }
+    }
+  }
+  & > .container {
+    margin-top: 8.125em;
+    width: 29.5em;
+    height: 24.5em;
+    border: 2px solid $blue;
+    @include media-query("sm") {
+      margin-top: 6em;
+      width: 25em;
+    }
+    h1 {
+      margin-bottom: 2em;
+      font-family: $primary-font-stack;
+      font-weight: bold;
+      font-size: 2em;
+      text-align: center;
+    }
+    .form {
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      width: 22.437em;
+      gap: 1.5em;
+      @include media-query("sm") {
+        width: 20em;
+      }
+      .holder {
+        padding-top: 0.3em;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background-color: dark-color($gray, 5%);
+        border: 3px;
+        @include on-event {
+          background-color: rgba($blue, 0.2);
+        }
+        .error {
+          color: $pink;
+          font-weight: bold;
+          position: absolute;
+          top: -30%;
+          left: 0;
+        }
+        label {
+          font-weight: bold;
+          line-height: 1;
+          padding-inline: 0.7em;
+          padding-top: 0.5em;
+        }
+        input {
+          background-color: transparent;
+          border: none;
+          padding: 0.7em 0.7em;
+          @include on-event {
+            outline: none;
+          }
+        }
+      }
+      button {
+        height: 2.5em;
+        background-color: $blue;
+        color: $white;
+        border: none;
+        cursor: pointer;
+        transition: $delay;
+        @include on-event {
+          background-color: dark-color($blue, 10%);
+        }
+      }
+    }
+  }
+}

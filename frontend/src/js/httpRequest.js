@@ -15,7 +15,8 @@ export default async function httpRequest({
     });
     const data = await res.json();
     if (data?.error) throw data;
+    return data;
   } catch (error) {
-    return error.error;
+    return error;
   }
 }
