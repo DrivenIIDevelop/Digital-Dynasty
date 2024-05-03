@@ -1,0 +1,73 @@
+@use "../abstracts" as *;
+
+#dashboard-header {
+  padding: 0.5em 2em;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 1px rgba($black, 0.1);
+  .logo {
+    width: 8em;
+  }
+  .links {
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+    }
+    @include media-query("l") {
+      position: fixed;
+      flex-direction: column;
+      left: 0;
+      top: 4.5em;
+      background-color: $gray;
+      padding-top: 2em;
+      width: 16em;
+      height: 100%;
+      align-items: start;
+      justify-content: stretch;
+      gap: 0.5em;
+      transition: $delay;
+      transform: translateX(-100%);
+      .link {
+        width: 16em;
+        justify-content: start;
+        gap: 1em;
+        padding: 0.5em 1em;
+        transition: $delay;
+
+        &.active {
+          background-color: $blue;
+          color: $white;
+        }
+        @include on-event {
+          background-color: $blue;
+          color: $white;
+        }
+      }
+    }
+  }
+  .link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 0.5em;
+    height: 3em;
+    @include media-query("xl") {
+    }
+    &.active {
+      color: $blue;
+    }
+    @include on-event {
+      color: $blue;
+    }
+  }
+}
+
+#dashboard {
+}
