@@ -8,7 +8,6 @@ export default async function httpRequest({
   request_body,
 }) {
   try {
-    console.log(url);
     const res = await fetch(url, {
       method: http_method,
       headers: request_headers,
