@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Profile from "./pages/Profile";
 import Clients from "./pages/Clients";
+import Vendors from "./pages/Vendors";
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Login = lazy(() => import("./pages/Login"));
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/clients" element={<Clients />} />
+          <Route path="/vendors" element={<Vendors />} />
         </Routes>
       </Suspense>
     </Router>

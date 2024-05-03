@@ -45,3 +45,9 @@
     max-width: 100%;
   }
 }
+
+// Circular progress
+.MuiCircularProgress-root {
+  display: block !important;
+  margin-inline: auto !important;
+}

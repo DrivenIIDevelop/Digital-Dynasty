@@ -21,8 +21,8 @@ const links = [
     icon: BusinessCenterIcon,
   },
   {
-    name: "Transfer",
-    path: "/transfer",
+    name: "Vendors",
+    path: "/vendors",
     icon: SwapHorizIcon,
   },
   {
