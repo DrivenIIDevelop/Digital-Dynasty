@@ -31,8 +31,8 @@ const links = [
     icon: ReceiptIcon,
   },
   {
-    name: "Analytics",
-    path: "/analytics",
+    name: "Expenses",
+    path: "/expenses",
     icon: PieChartOutlineIcon,
   },
   {
