@@ -1,0 +1,16 @@
+@use "../abstracts" as *;
+
+#payment {
+  font-size: 1rem;
+  .title {
+    font-family: $primary-font-stack;
+    font-size: 2em;
+    margin-bottom: 1rem;
+  }
+  .description {
+    margin-bottom: 2rem;
+  }
+  .table-container {
+    @include table-container;
+  }
+}

@@ -5,6 +5,7 @@ import Profile from "./pages/Profile";
 import Clients from "./pages/Clients";
 import Vendors from "./pages/Vendors";
 import Invoices from "./pages/Invoices";
+import Payment from "./pages/Payment";
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Login = lazy(() => import("./pages/Login"));
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/clients" element={<Clients />} />
           <Route path="/vendors" element={<Vendors />} />
           <Route path="/invoices" element={<Invoices />} />
+          <Route path="/payment" element={<Payment />} />
         </Routes>
       </Suspense>
     </Router>

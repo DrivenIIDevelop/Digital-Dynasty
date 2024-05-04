@@ -104,8 +104,7 @@ const Invoices = () => {
         status: invoiceData.status,
       }),
     });
-    console.log(response);
-    if (response?.error) return console.log(response?.error); //Set error
+    if (response?.error) return; //Set error
     getInvoices();
     handleClose();
   };
@@ -319,14 +318,14 @@ const Invoices = () => {
             <tbody>
               {isLoading && (
                 <tr>
-                  <td colSpan="5">
+                  <td colSpan="6">
                     <CircularProgress />
                   </td>
                 </tr>
               )}
               {invoicesArray?.error && (
                 <tr>
-                  <td colSpan="5">{invoicesArray?.error}</td>
+                  <td colSpan="6">{invoicesArray?.error}</td>
                 </tr>
               )}
               {!invoicesArray?.error &&
