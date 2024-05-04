@@ -1,0 +1,107 @@
+@use "../abstracts" as *;
+
+#invoices {
+  font-size: 1rem;
+  .title {
+    font-family: $primary-font-stack;
+    font-size: 2em;
+    margin-bottom: 1rem;
+  }
+  .description {
+    margin-bottom: 2rem;
+  }
+  .table-container {
+    .add-invoice {
+      display: block;
+      width: 10em;
+      padding-block: 0.5em;
+      margin-bottom: 1em;
+      background-color: $blue;
+      color: $white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      @include on-event {
+        background-color: dark-color($blue, 5%);
+        outline: none;
+        box-shadow: 2px 2px 5px rgba($black, 0.2);
+      }
+    }
+  }
+  .table-container {
+    @include table-container;
+    .status {
+      padding: 0.2em 0.5em;
+      border-radius: 3px;
+      box-shadow: 1px 1px 3px rgba($black, 0.2);
+      display: block;
+      &.pending {
+        background-color: rgba(#ffeb3b, 0.2);
+      }
+      &.paid {
+        background-color: rgba($green, 0.2);
+      }
+      &.overdue {
+        background-color: rgba($pink, 0.2);
+      }
+    }
+  }
+}
+
+.MuiBox-root.css-1htuxl {
+  .form {
+    $arrow-icon: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg);
+    /* <select> styles */
+    select {
+      appearance: none;
+      border: 0;
+      outline: 0;
+      width: 100%;
+      padding: 0.5em 1em;
+      background: $arrow-icon no-repeat right 0.8em center / 1.4em,
+        linear-gradient(to left, rgba($blue, 0.9) 3em, rgba($blue, 0.9) 3em);
+      color: white;
+      border-radius: 0.25em;
+      box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      @include on-event {
+        background: $arrow-icon no-repeat right 0.8em center / 1.4em,
+          linear-gradient(
+            to left,
+            dark-color($blue, 5%) 3em,
+            dark-color($blue, 5%) 3em
+          );
+      }
+      /* Remove IE arrow */
+      &::-ms-expand {
+        display: none;
+      }
+      /* Remove focus outline */
+      &:focus {
+        outline: none;
+      }
+      /* <option> colors */
+      option {
+        color: $black;
+        background-color: rgba($blue, 0.3);
+      }
+    }
+    .link {
+      display: block;
+      // width: 10em;
+      text-align: center;
+      padding-block: 0.3em;
+      // margin-bottom: 2em;
+      background-color: $blue;
+      color: $white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      @include on-event {
+        background-color: dark-color($blue, 5%);
+        outline: none;
+        box-shadow: 2px 2px 5px rgba($black, 0.2);
+      }
+    }
+  }
+}

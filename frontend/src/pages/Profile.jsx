@@ -25,7 +25,7 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isValidPhoneNumber || !isValidUsername || !isValidEmail) return;
-    // check if the data in userData is diffrent from the data in sessionStorage
+    // check if the data in userData is diffrent from the data in localStorage
     const isDataChanged = checkIsDataChanged(e.target);
     if (!isDataChanged) return;
     const data = {
@@ -39,7 +39,7 @@ const Profile = () => {
       phone: userData?.phone,
     };
     const response = await httpRequest({
-      url: `http://localhost:${PORT}/user/profile/${sessionStorage.getItem(
+      url: `http://localhost:${PORT}/user/profile/${localStorage.getItem(
         "userId"
       )}`,
       http_method: "PUT",
@@ -61,7 +61,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       const data = await httpRequest({
-        url: `http://localhost:${PORT}/user/profile/${sessionStorage.getItem(
+        url: `http://localhost:${PORT}/user/profile/${localStorage.getItem(
           "userId"
         )}`,
         http_method: "GET",

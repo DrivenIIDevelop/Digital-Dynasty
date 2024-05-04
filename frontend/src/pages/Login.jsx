@@ -29,8 +29,8 @@ const Login = () => {
       }),
     });
     if (data?.error) return setInvalidEmailOrPassword(true);
-    sessionStorage.setItem("token", data.token);
-    sessionStorage.setItem("userId", data._id);
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("userId", data._id);
     navigate("/profile");
   };
   return (

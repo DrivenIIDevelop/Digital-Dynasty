@@ -5,63 +5,14 @@
   .container {
     .title {
       font-family: $primary-font-stack;
+      font-size: 2em;
       margin-bottom: 1rem;
     }
     .description {
       margin-bottom: 2rem;
     }
     .table-container {
-      max-width: 60em;
-      margin-inline: auto;
-      .add-client {
-        display: block;
-        width: 10em;
-        padding-block: 0.5em;
-        margin-bottom: 1em;
-        background-color: $blue;
-        color: $white;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        @include on-event {
-          background-color: dark-color($blue, 5%);
-          outline: none;
-          box-shadow: 2px 2px 5px rgba($black, 0.2);
-        }
-      }
-      .table {
-        width: 100%;
-        border-collapse: collapse;
-        border: 1px solid $black;
-        border-radius: 3px;
-        overflow: hidden;
-        thead {
-          tr {
-            th {
-              font-family: $secondary-font-stack;
-              border: 1px solid rgba($black, 0.2);
-              text-align: left;
-              padding: 0.7em 1em;
-              color: $white;
-              background-color: $blue;
-            }
-          }
-        }
-        tbody {
-          tr {
-            cursor: pointer;
-            @include on-event {
-              background-color: rgba($blue, 0.2);
-            }
-            td {
-              padding: 0.7em 1em;
-              font-weight: bold;
-              background-color: rgba($blue, 0.1);
-              border: 1px solid rgba($black, 0.2);
-            }
-          }
-        }
-      }
+      @include table-container;
     }
   }
 }
