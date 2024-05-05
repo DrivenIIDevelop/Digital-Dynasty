@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import DashboardHeader from "../components/DashboardHeader";
 import httpRequest from "../js/httpRequest";
 import { PORT } from "../port";
 import Box from "@mui/material/Box";
@@ -20,35 +19,37 @@ const style = {
   p: 4,
 };
 
-const Vendors = () => {
-  const [vendorsArr, setVendorsArr] = useState([]);
+const ClientsComp = () => {
+  const [clientsArr, setClientsArr] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  // Date formatter
+  const dateOptions = { day: "2-digit", month: "2-digit", year: "2-digit" };
 
-  // Get vendors
-  const getVendors = async () => {
-    const vendors = await httpRequest({
-      url: `http://localhost:${PORT}/vendors`,
+  // Get clients
+  const getClients = async () => {
+    const clients = await httpRequest({
+      url: `http://localhost:${PORT}/clients`,
       http_method: "GET",
       request_headers: {
         "Content-Type": "application/json",
       },
     });
     setIsLoading(false);
-    if (vendors?.error) return;
-    setVendorsArr(vendors);
+    if (clients?.error) return;
+    setClientsArr(clients);
   };
 
   useEffect(() => {
-    getVendors();
+    getClients();
   }, []);
   // handle modal
 
-  const [vendorData, setVendorsData] = useState({
+  const [clientData, setClientData] = useState({
     name: "",
     email: "",
     phone: "",
   });
-  const [updateVendor, setUpdateVendor] = useState(null);
+  const [updateClient, setUpdateClient] = useState(null);
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidName, setIsValidName] = useState(true);
@@ -58,7 +59,7 @@ const Vendors = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  // Add vendor
+  // Add client
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStartChecking(true);
@@ -70,7 +71,7 @@ const Vendors = () => {
     )
       return;
     const duplicationError = await httpRequest({
-      url: `http://localhost:${PORT}/vendors`,
+      url: `http://localhost:${PORT}/clients`,
       http_method: "POST",
       request_headers: {
         "Content-Type": "application/json",
@@ -84,11 +85,11 @@ const Vendors = () => {
     if (duplicationError?.message) setIsDuplicationError(true);
     else {
       setIsDuplicationError(false);
-      getVendors();
+      getClients();
       handleClose();
     }
   };
-  // Update vendor
+  // Update client
   const handleUpdate = async (e) => {
     e.preventDefault();
     setStartChecking(true);
@@ -100,7 +101,7 @@ const Vendors = () => {
     )
       return;
     const duplicationError = await httpRequest({
-      url: `http://localhost:${PORT}/vendors/${updateVendor._id}`,
+      url: `http://localhost:${PORT}/clients/${updateClient._id}`,
       http_method: "PUT",
       request_headers: {
         "Content-Type": "application/json",
@@ -114,15 +115,15 @@ const Vendors = () => {
     if (duplicationError?.error) setIsDuplicationError(true);
     else {
       setIsDuplicationError(false);
-      getVendors();
+      getClients();
       handleClose();
     }
   };
 
-  // Delete vendor
+  // Delete client
   const handleDelete = async () => {
     const deletionError = await httpRequest({
-      url: `http://localhost:${PORT}/vendors/${updateVendor._id}`,
+      url: `http://localhost:${PORT}/clients/${updateClient._id}`,
       http_method: "DELETE",
       request_headers: {
         "Content-Type": "application/json",
@@ -131,29 +132,27 @@ const Vendors = () => {
     if (deletionError?.error) setIsDuplicationError(true);
     else {
       setIsDuplicationError(false);
-      getVendors();
+      getClients();
       handleClose();
     }
   };
 
   return (
     <div className="clients">
-      <DashboardHeader currentPage="Vendors" />
+      <h2 className="title">Clients</h2>
       <div className="container">
-        <h1 className="title">Vendors</h1>
-        <p className="description">View and manage your vendors.</p>
         <div className="table-container">
           {/* Material UI modal */}
           <div className="add-client-container">
             <Button
               onClick={() => {
                 handleOpen();
-                setVendorsData({ name: "", email: "", phone: "" });
-                setUpdateVendor(null);
+                setClientData({ name: "", email: "", phone: "" });
+                setUpdateClient(null);
               }}
               className="add-client"
             >
-              Add Vendor
+              Add Client
             </Button>
             <Modal
               open={open}
@@ -168,33 +167,33 @@ const Vendors = () => {
                   component="h2"
                   style={{ textAlign: "center" }}
                 >
-                  {updateVendor ? "Update Vendor" : "Add Vendor"}
+                  {updateClient ? "Update Client" : "Add Client"}
                 </Typography>
                 <Typography
                   id="modal-modal-description"
                   sx={{ mt: 2 }}
                 ></Typography>
                 <form
-                  onSubmit={updateVendor ? handleUpdate : handleSubmit}
+                  onSubmit={updateClient ? handleUpdate : handleSubmit}
                   className="form"
                 >
                   {isDuplicationError && (
                     <span className="error">
-                      Vendor with email already exists
+                      Client with email already exists
                     </span>
                   )}
                   <label htmlFor="name">
                     Name
                     <input
                       type="text"
-                      placeholder="Enter vendor's name"
+                      placeholder="Enter client's name"
                       name="name"
                       id="name"
                       title="Name"
-                      value={vendorData.name}
+                      value={clientData.name}
                       onChange={(e) => {
-                        setVendorsData({
-                          ...vendorData,
+                        setClientData({
+                          ...clientData,
                           name: e.target.value,
                         });
                         setIsDuplicationError(false);
@@ -212,14 +211,14 @@ const Vendors = () => {
                     Email
                     <input
                       type="text"
-                      placeholder="Enter vendor's email"
+                      placeholder="Enter client's email"
                       name="email"
                       id="email"
                       title="Email"
-                      value={vendorData.email}
+                      value={clientData.email}
                       onChange={(e) => {
-                        setVendorsData({
-                          ...vendorData,
+                        setClientData({
+                          ...clientData,
                           email: e.target.value,
                         });
                         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -236,14 +235,14 @@ const Vendors = () => {
                     Phone
                     <input
                       type="text"
-                      placeholder="Enter vendor's phone number"
+                      placeholder="Enter client's phone number"
                       name="phone"
                       id="phone"
                       title="Phone"
-                      value={vendorData.phone}
+                      value={clientData.phone}
                       onChange={(e) => {
-                        setVendorsData({
-                          ...vendorData,
+                        setClientData({
+                          ...clientData,
                           phone: e.target.value,
                         });
 
@@ -266,11 +265,11 @@ const Vendors = () => {
                     )}
                   </label>
                   <button type="submit" className="submit">
-                    {updateVendor ? "Update Vendor" : "Add Vendor"}
+                    {updateClient ? "Update Client" : "Add Client"}
                   </button>
-                  {updateVendor && (
+                  {updateClient && (
                     <button onClick={handleDelete} className="delete">
-                      Delete Vendor
+                      Delete Client
                     </button>
                   )}
                 </form>
@@ -284,6 +283,8 @@ const Vendors = () => {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Created at</th>
+                <th>Updated at</th>
               </tr>
             </thead>
             <tbody>
@@ -294,24 +295,36 @@ const Vendors = () => {
                   </td>
                 </tr>
               )}
-              {vendorsArr?.message && (
+              {clientsArr?.message && (
                 <tr>
-                  <td colSpan="5">{vendorsArr?.message}</td>
+                  <td colSpan="5">{clientsArr?.message}</td>
                 </tr>
               )}
-              {!vendorsArr?.message &&
-                vendorsArr?.map((vendor) => (
+              {!clientsArr?.message &&
+                clientsArr?.map((client) => (
                   <tr
                     onClick={() => {
-                      setVendorsData(vendor);
-                      setUpdateVendor(vendor);
+                      setClientData(client);
+                      setUpdateClient(client);
                       setOpen(true);
                     }}
-                    key={vendor._id}
+                    key={client._id}
                   >
-                    <td>{vendor.name}</td>
-                    <td>{vendor.email}</td>
-                    <td>{vendor.phone}</td>
+                    <td>{client.name}</td>
+                    <td>{client.email}</td>
+                    <td>{client.phone}</td>
+                    <td>
+                      {new Date(client.createdAt).toLocaleDateString(
+                        "en-GB",
+                        dateOptions
+                      )}
+                    </td>
+                    <td>
+                      {new Date(client.updatedAt).toLocaleDateString(
+                        "en-GB",
+                        dateOptions
+                      )}
+                    </td>
                   </tr>
                 ))}
             </tbody>
@@ -322,4 +335,4 @@ const Vendors = () => {
   );
 };
 
-export default Vendors;
+export default ClientsComp;

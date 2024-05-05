@@ -2,15 +2,13 @@
 
 .clients {
   font-size: 1rem;
+  .title {
+    font-family: $primary-font-stack;
+    font-size: 2em;
+    margin-block: 2em 1rem;
+    margin-left: 7em;
+  }
   .container {
-    .title {
-      font-family: $primary-font-stack;
-      font-size: 2em;
-      margin-bottom: 1rem;
-    }
-    .description {
-      margin-bottom: 2rem;
-    }
     .table-container {
       @include table-container;
     }

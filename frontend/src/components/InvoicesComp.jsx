@@ -1,4 +1,3 @@
-import DashboardHeader from "../components/DashboardHeader";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -21,7 +20,7 @@ const style = {
   p: 4,
 };
 
-const Invoices = () => {
+const InvoicesComp = () => {
   const [invoicesArray, setInvoicesArray] = useState([]);
   const [clientsArray, setClientsArray] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -149,10 +148,8 @@ const Invoices = () => {
   };
   return (
     <div id="invoices">
-      <DashboardHeader currentPage="Invoices" />
+      <h2 className="title">Invoices</h2>
       <div className="container">
-        <h1 className="title">Invoices</h1>
-        <p className="description">View and create your invoices</p>
         <div className="table-container">
           {/* Material UI modal */}
           <div className="add-client-container">
@@ -386,4 +383,4 @@ const Invoices = () => {
   );
 };
 
-export default Invoices;
+export default InvoicesComp;

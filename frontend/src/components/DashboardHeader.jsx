@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
 import LogoRegular from "./icons/LogoRegular";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
-import ReceiptIcon from "@mui/icons-material/Receipt";
-import PieChartOutlineIcon from "@mui/icons-material/PieChartOutline";
-import ArticleIcon from "@mui/icons-material/Article";
 import PropTypes from "prop-types";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import GroupIcon from "@mui/icons-material/Group";
+import FaceIcon from "@mui/icons-material/Face";
 
 const links = [
   {
@@ -16,29 +14,19 @@ const links = [
     icon: DashboardIcon,
   },
   {
-    name: "Clients",
-    path: "/clients",
-    icon: BusinessCenterIcon,
-  },
-  {
-    name: "Vendors",
-    path: "/vendors",
+    name: "Transfer",
+    path: "/transfer",
     icon: SwapHorizIcon,
   },
   {
-    name: "Payment",
-    path: "/payment",
-    icon: ReceiptIcon,
+    name: "Partnership",
+    path: "/partnership",
+    icon: GroupIcon,
   },
   {
     name: "Expenses",
     path: "/expenses",
-    icon: PieChartOutlineIcon,
-  },
-  {
-    name: "Invoices",
-    path: "/invoices",
-    icon: ArticleIcon,
+    icon: AttachMoneyIcon,
   },
 ];
 
@@ -67,7 +55,7 @@ const DashboardHeader = (props) => {
         className={`link ${props.currentPage === "Profile" ? "active" : ""}`}
         to="/profile"
       >
-        <AccountBoxIcon />
+        <FaceIcon />
         Profile
       </Link>
     </div>

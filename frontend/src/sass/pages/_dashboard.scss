@@ -113,6 +113,9 @@
       .expenses-doughnut {
         width: 16.31em;
       }
+      .category {
+        min-width: 10em;
+      }
       .labels {
         display: flex;
         flex-direction: column;
@@ -133,7 +136,6 @@
   }
 
   .payment {
-    // margin-top: 3.75em;
     max-width: 47.625em;
     .wrapper {
       background-color: $white;
@@ -148,7 +150,7 @@
         .transfer {
           margin-top: 1em;
           display: flex;
-          flex-direction: column;
+          flex-direction: column-reverse;
           background-color: dark-color($gray, 2%);
           .holder {
             padding: 2em 4em;

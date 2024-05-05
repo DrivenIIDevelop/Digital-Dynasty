@@ -95,13 +95,13 @@ const Dashboard = () => {
               View All
             </Link>
           </h2>
-          {!expensesArray && <CircularProgress />}
           <div className="expenses-doughnut-wrapper">
+            {!expensesArray && <CircularProgress />}
             {expensesArray && (
               <div className="expenses-doughnut">
                 <ExpensesPie
                   data={{
-                    // labels: expensesArray?.map((expense) => expense.category),
+                    labels: expensesArray.map((expense) => expense.category),
                     datasets: [
                       {
                         data: expensesArray?.map((expense) => expense.amount),
@@ -132,7 +132,7 @@ const Dashboard = () => {
         <div className="payment">
           <div className="title-secondary">
             Latest Transactions
-            <Link className="link" to="/payments">
+            <Link className="link" to="/transfer">
               View All
             </Link>
           </div>
@@ -140,7 +140,7 @@ const Dashboard = () => {
             <div className="today-transfer">
               <span className="small">Today</span>
               <div className="transfer">
-                {paymentArray &&
+                {paymentArray?.length > 0 &&
                   clients &&
                   paymentArray.map((payment, index) => (
                     <div key={index} className="holder">
@@ -157,10 +157,10 @@ const Dashboard = () => {
                       </span>
                     </div>
                   ))}
-                {invoicesArray &&
+                {!invoicesArray && <CircularProgress />}
+                {invoicesArray?.length > 0 &&
                   clients &&
                   invoicesArray.map((invoice, index) => {
-                    if (index > 3) return;
                     return (
                       <div key={index} className="holder">
                         <p className="transfer-type">

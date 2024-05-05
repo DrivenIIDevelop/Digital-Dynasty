@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import DashboardHeader from "../components/DashboardHeader";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -7,6 +6,7 @@ import Modal from "@mui/material/Modal";
 import { CircularProgress } from "@mui/material";
 import httpRequest from "../js/httpRequest";
 import { PORT } from "../port";
+import { Link } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -20,7 +20,7 @@ const style = {
   p: 4,
 };
 
-const Payment = () => {
+const PaymentComp = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [paymentArray, setPaymentArray] = useState([]);
   const [paymentData, setPaymentData] = useState({
@@ -33,6 +33,7 @@ const Payment = () => {
   });
   const [updatePayment, setUpdatePayment] = useState(null);
   const [clients, setClients] = useState([]);
+  const [noClients, setNoClients] = useState(false);
   // Date formatter
   const dateOptions = { day: "2-digit", month: "2-digit", year: "2-digit" };
 
@@ -128,10 +129,8 @@ const Payment = () => {
 
   return (
     <div id="payment">
-      <DashboardHeader currentPage="Payment" />
+      <h2 className="title">PAYMENT</h2>
       <div className="container">
-        <h1 className="title">PAYMENT</h1>
-        <p className="description">Optimize your payments</p>
         <div className="table-container">
           <div className="add-payment-container"></div>
 
@@ -140,6 +139,7 @@ const Payment = () => {
             <Button
               onClick={() => {
                 setUpdatePayment(false);
+                setNoClients(clients.length === 0);
                 setPaymentData({
                   client_id: "",
                   payment_date: "",
@@ -180,25 +180,31 @@ const Payment = () => {
                   {!updatePayment && (
                     <label htmlFor="clientId">
                       Client
-                      <select
-                        value={paymentData.client_id}
-                        onChange={(e) =>
-                          setPaymentData({
-                            ...paymentData,
-                            client_id: e.target.value,
-                          })
-                        }
-                        name="clientId"
-                        id="clientId"
-                        required
-                      >
-                        <option value="">Select Client</option>
-                        {clients?.map((client) => (
-                          <option value={client._id} key={client._id}>
-                            {client.name}
-                          </option>
-                        ))}
-                      </select>
+                      {!noClients ? (
+                        <select
+                          value={paymentData.client_id}
+                          onChange={(e) =>
+                            setPaymentData({
+                              ...paymentData,
+                              client_id: e.target.value,
+                            })
+                          }
+                          name="clientId"
+                          id="clientId"
+                          required
+                        >
+                          <option value="">Select Client</option>
+                          {clients?.map((client) => (
+                            <option value={client._id} key={client._id}>
+                              {client.name}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <Link className="link" to="/clients">
+                          Add a client
+                        </Link>
+                      )}
                     </label>
                   )}
                   {!updatePayment && (
@@ -343,4 +349,4 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default PaymentComp;

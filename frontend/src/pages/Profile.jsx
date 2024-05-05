@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import DashboardHeader from "../components/DashboardHeader";
 import { PORT } from "../port";
 import httpRequest from "../js/httpRequest";
+import { CircularProgress } from "@mui/material";
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -80,6 +81,7 @@ const Profile = () => {
       <div className="container">
         <h1 className="title">Profile</h1>
         <p className="description">View and manage your account details.</p>
+        {!userData && <CircularProgress />}
         {userData && (
           <form className="form" onSubmit={handleSubmit}>
             <label htmlFor="username">
