@@ -319,7 +319,7 @@ const Payment = () => {
                         dateOptions
                       )}
                     </td>
-                    <td>{payment.amount.$numberDecimal} $</td>
+                    <td>${payment.amount.$numberDecimal}</td>
                     <td>{payment.method}</td>
                     <td>
                       {new Date(payment.createdAt).toLocaleDateString(

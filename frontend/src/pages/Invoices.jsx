@@ -358,7 +358,7 @@ const Invoices = () => {
                         dateOptions
                       )}
                     </td>
-                    <td>{invoice?.amount.$numberDecimal} $</td>
+                    <td>${invoice?.amount.$numberDecimal}</td>
                     <td>
                       {new Date(invoice?.createdAt).toLocaleDateString(
                         "en-GB",

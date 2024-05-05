@@ -70,4 +70,126 @@
 }
 
 #dashboard {
+  font-size: 1rem;
+  .title {
+    margin: 1em 1em 3em;
+    font-family: $primary-font-stack;
+    font-size: 2em;
+    color: $blue;
+  }
+  .title-secondary {
+    font-family: $primary-font-stack;
+    font-size: 1.7em;
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 100;
+    .link {
+      font-size: 0.5em;
+      color: $blue;
+      @include on-event {
+        color: dark-color($blue, 10%);
+      }
+    }
+  }
+  .dashboard-container {
+    margin: 1em 5em;
+    display: flex;
+    justify-content: center;
+    gap: 5em;
+    align-items: start;
+  }
+  .expenses {
+    max-width: 47.625em;
+    .expenses-doughnut-wrapper {
+      background-color: $white;
+      box-shadow: 0 2px 1px rgba($black, 0.1);
+      padding: 2em 5em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14em;
+      .expenses-doughnut {
+        width: 16.31em;
+      }
+      .labels {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+        .label {
+          display: flex;
+          align-items: center;
+          gap: 1em;
+          .label-color {
+            display: block;
+            min-width: 1em;
+            height: 1em;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+
+  .payment {
+    // margin-top: 3.75em;
+    max-width: 47.625em;
+    .wrapper {
+      background-color: $white;
+      box-shadow: 0 2px 1px rgba($black, 0.1);
+      padding: 1em 4em 3em;
+      margin-bottom: 3.75em;
+      .today-transfer {
+        .small {
+          font-size: 1em;
+          color: rgba($black, 0.7);
+        }
+        .transfer {
+          margin-top: 1em;
+          display: flex;
+          flex-direction: column;
+          background-color: dark-color($gray, 2%);
+          .holder {
+            padding: 2em 4em;
+            min-width: 35em;
+            border-bottom: 1px solid rgba($black, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .transfer-type {
+              display: flex;
+              gap: 2em;
+              width: 14em;
+              .payment-icon {
+                color: $green;
+              }
+              .expense-icon {
+                color: $green;
+                &.overdue {
+                  color: $pink;
+                }
+              }
+            }
+            .status {
+              border-radius: 1em;
+              padding: 0.2em 0.5em;
+              &.paid {
+                background-color: rgba($green, 0.1);
+                color: $green;
+              }
+              &.pending {
+                background-color: rgba(yellow, 0.1);
+                color: $yellow;
+              }
+              &.overdue {
+                background-color: rgba($pink, 0.1);
+                color: $pink;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

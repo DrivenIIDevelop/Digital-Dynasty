@@ -306,7 +306,7 @@ const Expenses = () => {
                         dateOptions
                       )}
                     </td>
-                    <td>{expense.amount} $</td>
+                    <td>${expense.amount}</td>
                     <td>{expense.category}</td>
                     <td>
                       {new Date(expense.createdAt).toLocaleDateString(

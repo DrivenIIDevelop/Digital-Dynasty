@@ -1,14 +1,15 @@
 import Home from "./pages/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
-import Profile from "./pages/Profile";
-import Clients from "./pages/Clients";
-import Vendors from "./pages/Vendors";
-import Invoices from "./pages/Invoices";
-import Payment from "./pages/Payment";
-import Expenses from "./pages/Expenses";
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Login = lazy(() => import("./pages/Login"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Profile = lazy(() => import("./pages/Profile"));
+const Clients = lazy(() => import("./pages/Clients"));
+const Vendors = lazy(() => import("./pages/Vendors"));
+const Invoices = lazy(() => import("./pages/Invoices"));
+const Payment = lazy(() => import("./pages/Payment"));
+const Expenses = lazy(() => import("./pages/Expenses"));
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/invoices" element={<Invoices />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/expenses" element={<Expenses />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Suspense>
     </Router>
