@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const expenseSchema = new mongoose.Schema({
   vendor_id: {
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
     required: true
   },
   expense_date: {
