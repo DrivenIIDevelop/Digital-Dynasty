@@ -1,0 +1,10 @@
+@use "../abstracts" as *;
+
+#transfer {
+  h1.title {
+    margin: 1em;
+    font-family: $primary-font-stack;
+    font-size: 2em;
+    color: $blue;
+  }
+}

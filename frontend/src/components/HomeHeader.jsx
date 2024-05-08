@@ -4,7 +4,7 @@ import { Squeeze as Hamburger } from "hamburger-react";
 import { useEffect, useState } from "react";
 import LogoSmall from "./icons/LogoSmall";
 
-const Header = () => {
+const HomeHeader = () => {
   const [isDesktop, setIsDesktop] = useState(true);
   const [open, setOpen] = useState(false);
 
@@ -66,4 +66,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HomeHeader;

@@ -61,7 +61,7 @@ const SignUp = () => {
     if (duplicationError?.error === "User with username already exists")
       setIsUsernameDuplicated(true);
     // Navigate to login page
-    if (!duplicationError) navigate("/login");
+    if (!duplicationError?.error) navigate("/login");
   };
 
   return (

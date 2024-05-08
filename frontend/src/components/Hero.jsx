@@ -10,9 +10,7 @@ const Hero = () => {
             Payment processing platform that facilitates transactions between
             businesses and their customers.
           </p>
-          <button>
-            <Link to="/signup">Open account</Link>
-          </button>
+          <Link to="/signup">Open account</Link>
         </div>
         <div className="image">
           <img src="/heroImage.png" loading="lazy" alt="hero" />

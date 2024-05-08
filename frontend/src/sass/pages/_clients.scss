@@ -1,0 +1,75 @@
+@use "../abstracts" as *;
+
+.clients {
+  font-size: 1rem;
+  .title {
+    font-family: $primary-font-stack;
+    font-size: 2em;
+    margin-block: 2em 1rem;
+    margin-left: 7em;
+  }
+  .container {
+    .table-container {
+      @include table-container;
+    }
+  }
+}
+
+.MuiBox-root.css-1htuxl {
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    margin-bottom: 1em;
+    .holder {
+      display: flex;
+      gap: 1em;
+    }
+
+    .error {
+      color: $pink;
+      font-weight: bold;
+    }
+    label {
+      font-size: 1em;
+      font-weight: 400;
+      input {
+        display: block;
+        width: 100%;
+        height: 2.375em;
+        background-color: dark-color($gray, 5%);
+        border: none;
+        padding-inline: 1em;
+        font-weight: 400;
+        &::placeholder {
+          color: dark-color($gray, 30%);
+        }
+        @include on-event {
+          outline: none;
+          box-shadow: 2px 2px 3px rgba($blue, 0.3);
+        }
+      }
+    }
+    .submit,
+    .delete {
+      margin-top: 1em;
+      height: 2.75em;
+      display: block;
+      color: $white;
+      background-color: $blue;
+      border: none;
+      cursor: pointer;
+      transition: $delay;
+      @include on-event {
+        background-color: dark-color($blue, 10%);
+      }
+      &.delete {
+        margin-top: 0;
+        background-color: $pink;
+        @include on-event {
+          background-color: dark-color($pink, 10%);
+        }
+      }
+    }
+  }
+}

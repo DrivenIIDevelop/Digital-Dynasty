@@ -17,6 +17,7 @@ export default async function httpRequest({
     if (data?.error) throw data;
     return data;
   } catch (error) {
+    // console.error(error);
     return error;
   }
 }

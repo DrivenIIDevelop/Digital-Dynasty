@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+import HomeHeader from "../components/HomeHeader";
 import Hero from "../components/Hero";
 import Services from "../components/Services";
 import Solution from "../components/Solution";
@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 const Home = () => {
   return (
     <div id="home">
-      <Header />
+      <HomeHeader />
       <Hero />
       <Services />
       <Solution />

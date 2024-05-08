@@ -3,8 +3,6 @@ import LogoRegular from "../components/icons/LogoRegular";
 import { useState } from "react";
 import httpRequest from "../js/httpRequest";
 import { PORT } from "../port";
-import { useContext } from "react";
-import { UserContext } from "../UserContext";
 
 const Login = () => {
   const [isValidUsername, setIsValidUsername] = useState(false);
@@ -12,7 +10,6 @@ const Login = () => {
   const [invalidEmailOrPassword, setInvalidEmailOrPassword] = useState(false);
   // Start checking fields after form submission
   const [startChecking, setStartChecking] = useState(false);
-  const { setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -32,8 +29,9 @@ const Login = () => {
       }),
     });
     if (data?.error) return setInvalidEmailOrPassword(true);
-    setUser(data);
-    navigate("/");
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("userId", data._id);
+    navigate("/profile");
   };
   return (
     <div id="login">
